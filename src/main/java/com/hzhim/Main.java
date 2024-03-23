@@ -100,34 +100,5 @@ public class Main {
         return result;
     }
 
-    class ListNode {
-        int val;
-        ListNode next;
 
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
-    }
-
-    public boolean hasCycle(ListNode head) {
-        if (head == null) {
-            return false;
-        }
-        ListNode n1 = head;
-        ListNode n2 = head.next;
-        while (n1 != n2 && n1 != null && n2 != null) {
-            n1 = n1.next;
-            if (n2.next == null) {
-                return false;
-            }
-            n2=n2.next.next;
-        }
-        return n1==n2;
-
-
-    }
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-
-    }
 }
