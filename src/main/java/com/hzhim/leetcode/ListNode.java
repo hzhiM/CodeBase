@@ -2,6 +2,8 @@ package com.hzhim.leetcode;
 
 import com.alibaba.fastjson.JSON;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -177,7 +179,7 @@ public class ListNode {
             count++;
         }
         remove = dummy;
-        for (int i = 0; i < count - n ; i++) {
+        for (int i = 0; i < count - n; i++) {
             remove = remove.next;
         }
         if (remove.next != null) {
@@ -186,9 +188,102 @@ public class ListNode {
         return dummy.next;
     }
 
+    /**
+     * 1.判断是否是重复数字，根据第一个和下一个是否相同
+     * 2. 相同就把这个数字的节点都跳过
+     * 3. 如果数字没有重复的，就保留这个数字
+     * 3. 找到下一个数字，循环上面的判断
+     */
     public ListNode deleteDuplicates(ListNode head) {
-        ListNode dummy=new ListNode(-1);
-        dummy.next=head;
-        ListNode
+        ListNode dummy = new ListNode(-200);
+        dummy.next = head;
+        ListNode pre = dummy;
+        while (pre.next != null && pre.next.next != null) {
+            if (pre.next.next.val == pre.next.val) {
+                int tmp = pre.next.val;
+                while (pre.next != null && pre.next.val == tmp) {
+                    pre.next = pre.next.next;
+                }
+            } else {
+                pre = pre.next;
+            }
+        }
+        return dummy.next;
+    }
+
+    /**
+     * 找到3个位置
+     * 1. head 2. 新的尾巴 3. 尾巴
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || head.next == null || k == 0) return head;
+        ListNode countLN = head;
+        int count = 0;
+        while (countLN != null) {
+            count++;
+            countLN = countLN.next;
+        }
+        k %= count;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode cur = dummy;
+        for (int i = 0; i < count - k; i++) {
+            cur = cur.next;
+        }
+        ListNode tail = cur;
+        while (tail.next != null) {
+            tail = tail.next;
+        }
+
+        dummy.next = cur.next;
+        cur.next = null;
+        tail.next = head;
+
+        return dummy.next;
+
+    }
+
+    public ListNode partition(ListNode head, int x) {
+        if (head == null || head.next == null) return head;
+        ListNode dummy1 = new ListNode(-1);
+        ListNode dummy2 = new ListNode(-1);
+        ListNode small = dummy1;
+        ListNode big = dummy2;
+        while (head != null) {
+            if (head.val < x) {
+                small.next = new ListNode(head.val);
+                small = small.next;
+            } else {
+                big.next = new ListNode(head.val);
+                big = big.next;
+            }
+            head = head.next;
+        }
+        small.next = dummy2.next;
+
+        return dummy1.next;
+    }
+
+    class LRUCache {
+        int capacity;
+        Deque<Integer> list;
+
+
+        public LRUCache(int capacity) {
+            this.capacity = capacity;
+            this.list = new ArrayDeque<>(capacity);
+        }
+
+        public int get(Integer key) {
+
+        }
+
+        public void put(Integer key, Integer value) {
+
+        }
     }
 }
