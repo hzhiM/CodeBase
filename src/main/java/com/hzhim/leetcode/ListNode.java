@@ -1,6 +1,5 @@
 package com.hzhim.leetcode;
 
-import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -279,7 +278,7 @@ public class ListNode {
         }
 
         public int get(Integer key) {
-
+            return 0;
         }
 
         public void put(Integer key, Integer value) {
